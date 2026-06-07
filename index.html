@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="絵本を年齢・テーマ・読書状況で仕分けできる本棚管理アプリ" />
+    <meta name="theme-color" content="#f6f3eb" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="えほん棚" />
+    <title>えほん棚 | 絵本の仕分けアプリ</title>
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="icon" href="icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="icon.svg" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" id="sidebar">
+        <div class="brand"><div class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></div><div><p class="brand-name">えほん棚</p><p class="brand-caption">わが家の絵本を、すっきり。</p></div></div>
+        <nav class="filter-nav" aria-label="絵本の仕分け">
+          <section class="filter-section"><p class="filter-label">本棚</p><button class="nav-item active" type="button" data-filter-type="shelf" data-filter-value="all"><span class="nav-icon">▦</span><span>すべての絵本</span><span class="nav-count" id="allCount">0</span></button><button class="nav-item" type="button" data-filter-type="shelf" data-filter-value="favorite"><span class="nav-icon">♡</span><span>お気に入り</span><span class="nav-count" id="favoriteCount">0</span></button></section>
+          <section class="filter-section"><p class="filter-label">読書状況</p><button class="nav-item" type="button" data-filter-type="status" data-filter-value="unread"><span class="status-dot status-unread"></span><span>まだ読んでいない</span><span class="nav-count" data-count-status="unread">0</span></button><button class="nav-item" type="button" data-filter-type="status" data-filter-value="reading"><span class="status-dot status-reading"></span><span>いま読んでいる</span><span class="nav-count" data-count-status="reading">0</span></button><button class="nav-item" type="button" data-filter-type="status" data-filter-value="read"><span class="status-dot status-read"></span><span>読みおわった</span><span class="nav-count" data-count-status="read">0</span></button></section>
+          <section class="filter-section"><p class="filter-label">年齢のめやす</p><button class="nav-item" type="button" data-filter-type="age" data-filter-value="0-2"><span class="age-icon">0–2</span><span>あかちゃん</span></button><button class="nav-item" type="button" data-filter-type="age" data-filter-value="3-5"><span class="age-icon">3–5</span><span>幼児</span></button><button class="nav-item" type="button" data-filter-type="age" data-filter-value="6+"><span class="age-icon">6+</span><span>小学生から</span></button></section>
+        </nav>
+        <div class="sidebar-note"><span class="sidebar-note-icon">✦</span><div><strong>Macに追加できます</strong><p>Dockから、いつでも本棚を開けます。</p><button id="installAppButton" type="button">追加方法を見る</button></div></div>
+      </aside>
+      <main class="main-content">
+        <header class="topbar"><button class="mobile-menu" id="mobileMenu" type="button" aria-label="メニューを開く">☰</button><div class="search-wrap"><span class="search-icon" aria-hidden="true">⌕</span><input id="searchInput" type="search" placeholder="タイトル・作者・テーマで検索" /><kbd>⌘ K</kbd></div><button class="primary-button" id="addBookButton" type="button"><span aria-hidden="true">＋</span> 絵本を登録</button></header>
+        <div class="content-wrap">
+          <section class="welcome-row"><div><p class="eyebrow">MY PICTURE BOOKS</p><h1>こんにちは。今日はどの絵本にする？</h1><p class="welcome-copy">大切な絵本を、読んだ記憶といっしょに整理しましょう。</p></div><div class="mini-illustration" aria-hidden="true"><div class="sun"></div><div class="book-stack book-one"></div><div class="book-stack book-two"></div><div class="book-stack book-three"></div><div class="plant"><span></span><span></span><i></i></div></div></section>
+          <section class="summary-grid" aria-label="本棚の概要"><article class="summary-card"><div class="summary-icon summary-icon-orange">▥</div><div><p>登録した絵本</p><strong><span id="summaryTotal">0</span><small> 冊</small></strong></div></article><article class="summary-card"><div class="summary-icon summary-icon-green">✓</div><div><p>読みおわった</p><strong><span id="summaryRead">0</span><small> 冊</small></strong></div></article><article class="summary-card"><div class="summary-icon summary-icon-blue">◷</div><div><p>まだ読んでいない</p><strong><span id="summaryUnread">0</span><small> 冊</small></strong></div></article><article class="summary-card progress-card"><div class="summary-icon summary-icon-purple">↗</div><div class="progress-copy"><p>読了率</p><strong><span id="summaryProgress">0</span><small>%</small></strong><div class="progress-track"><span id="progressBar"></span></div></div></article></section>
+          <section class="library-section"><div class="library-heading"><div><p class="section-kicker" id="sectionKicker">すべての絵本</p><h2><span id="resultCount">0</span>冊の絵本</h2></div><div class="library-actions"><select id="sortSelect" aria-label="並べ替え"><option value="newest">登録が新しい順</option><option value="title">タイトル順</option><option value="rating">お気に入り順</option></select><div class="view-toggle" aria-label="表示形式"><button class="active" id="gridViewButton" type="button" aria-label="カード表示">▦</button><button id="listViewButton" type="button" aria-label="リスト表示">☷</button></div></div></div><div class="active-filter" id="activeFilter" hidden><span id="activeFilterText"></span><button id="clearFilterButton" type="button">解除 ×</button></div><div class="book-grid" id="bookGrid"></div><div class="empty-state" id="emptyState" hidden><div class="empty-books" aria-hidden="true"><span></span><span></span><span></span></div><h3>該当する絵本がありません</h3><p>検索や仕分け条件を変えるか、新しい絵本を登録してみましょう。</p><button class="secondary-button" id="emptyAddButton" type="button">絵本を登録する</button></div></section>
+        </div>
+      </main>
+    </div>
+    <dialog class="book-dialog" id="bookDialog"><form method="dialog" id="bookForm"><div class="dialog-heading"><div><p class="eyebrow">PICTURE BOOK</p><h2 id="dialogTitle">絵本を登録</h2></div><button class="dialog-close" id="dialogClose" type="button" aria-label="閉じる">×</button></div><input type="hidden" id="bookId" /><div class="form-grid"><label class="full-field"><span>タイトル <b>*</b></span><input id="bookTitle" type="text" required placeholder="例：ぐりとぐら" /></label><label class="full-field"><span>作者</span><input id="bookAuthor" type="text" placeholder="例：なかがわ りえこ" /></label><label><span>年齢のめやす</span><select id="bookAge"><option value="0-2">0–2歳</option><option value="3-5" selected>3–5歳</option><option value="6+">6歳以上</option></select></label><label><span>読書状況</span><select id="bookStatus"><option value="unread">まだ読んでいない</option><option value="reading">いま読んでいる</option><option value="read">読みおわった</option></select></label><label class="full-field"><span>テーマ <small>（カンマ区切り）</small></span><input id="bookThemes" type="text" placeholder="例：どうぶつ, 友情, 冒険" /></label><label class="full-field"><span>ひとことメモ</span><textarea id="bookNote" rows="3" placeholder="お気に入りの場面や、読んだときの様子など"></textarea></label></div><label class="favorite-check"><input id="bookFavorite" type="checkbox" /><span>お気に入りに追加する</span></label><div class="dialog-actions"><button class="danger-button" id="deleteBookButton" type="button" hidden>この絵本を削除</button><span></span><button class="ghost-button" id="cancelButton" type="button">キャンセル</button><button class="primary-button" type="submit">保存する</button></div></form></dialog>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <dialog class="install-dialog" id="installDialog"><div class="dialog-heading"><div><p class="eyebrow">INSTALL ON MAC</p><h2>MacBookに追加する</h2></div><button class="dialog-close" id="installDialogClose" type="button" aria-label="閉じる">×</button></div><ol><li>Safariでこのページを開きます。</li><li>メニューバーの「ファイル」を選びます。</li><li>「Dockに追加」を選ぶと、通常のアプリのように起動できます。</li></ol><p>Chromeでは、アドレスバー右側のインストールアイコンから追加できます。</p><button class="primary-button" id="installDialogDone" type="button">わかりました</button></dialog>
+    <script src="app.js"></script>
+  </body>
+</html>
