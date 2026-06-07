@@ -1,0 +1,12 @@
+{
+  "name": "えほん棚",
+  "short_name": "えほん棚",
+  "description": "絵本を年齢・テーマ・読書状況で仕分けできる本棚管理アプリ",
+  "lang": "ja",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f6f3eb",
+  "theme_color": "#f6f3eb",
+  "icons": [{"src":"icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}]
+}
